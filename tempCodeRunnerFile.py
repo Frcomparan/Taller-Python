@@ -1,0 +1,2 @@
+
+        figuras.append(new)
