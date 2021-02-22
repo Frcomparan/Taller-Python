@@ -51,6 +51,14 @@ def main():
             print("Ingreso una opción invalida")
 
 
+def dimesiones_validas(l1,l2,l3):
+    if l1 > l2 and l1 >l3:
+        return ((l2 + l3) >l1)
+    if l2 > l1 and l2 >l3:
+        return ((l1 + l3) >l2)
+    if l3 > l2 and l3 >l1:
+        return ((l2 + l1) >l3)
+
 def menu_figuras(op2):
     if op2 == 1:
         lado = float(input("Ingresa la medida del lado del cuadrado: "))
@@ -59,8 +67,8 @@ def menu_figuras(op2):
     if op2 == 2:
         lado1, lado2, lado3 = float(input("Ingresa la medida del primer lado: ")), int(input(
             "Ingresa la medida del segundo lado: ")), int(input("Ingresa la medida del tercer lado: "))
-        new = crear_triangulo(lado1, lado2, lado3)
-        if new:
+        if dimesiones_validas(lado1,lado2,lado3):
+            new = crear_triangulo(lado1, lado2, lado3)
             figuras.append(new)
         else:
             print("Las dimensiones ingresadas no son validas")
@@ -119,37 +127,20 @@ def crear_triangulo(lado1, lado2, lado3):
         altu = ((lado1)*(math.sqrt(3)))/2
         area = (lado1 * altu)/2
     elif (lado1 == lado2) or (lado1 == lado3) or (lado2 == lado3):
-        tipo = "Triangulo isosceles"S
+        tipo = "Triangulo isosceles"
         if lado1 == lado2:
-            ver = ((lado1**2)-(lado3**2)/(4))
-            if ver > 0:
-                altu = math.sqrt(ver)
-                area = (lado3*altu)/2
-            else:
-                return False
+            altu = math.sqrt((lado1**2)-(lado3**2)/(4))
+            area = (lado3*altu)/2
         elif lado1 == lado3:
-            ver = ((lado1**2)-(lado2**2)/(4))
-            if ver > 0:
-                altu = math.sqrt(ver)
-                area = (lado2*altu)/2
-            else:
-                return False
+            altu = math.sqrt((lado1**2)-(lado2**2)/(4))
+            area = (lado2*altu)/2
         else:
-            ver = ((lado2**2)-(lado1**2)/(4))
-            if ver > 0:
-                altu = math.sqrt(ver)
-                area = (lado1*altu)/2
-            else:
-                return False
+            altu = math.sqrt((lado2**2)-(lado1**2)/(4))
+            area = (lado1*altu)/2
     else:
         tipo = "Triangulo escaleno"
         sp = (lado1+lado2+lado3)
-        ver = sp*(sp-lado1)*(sp-lado2)*(sp-lado3)
-        if ver > 0:
-            area = math.sqrt(ver)
-        else:
-            return False
-
+        area = math.sqrt(sp*(sp-lado1)*(sp-lado2)*(sp-lado3))
     new_triangulo = {"tipo": tipo, "area": area, "perimetro": per}
     return new_triangulo
 
