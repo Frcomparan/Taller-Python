@@ -34,7 +34,8 @@ def main():
             if ver1:
                 if buscar == "Triangulo":
                     tipo = input("¿Qué tipo de triangulo buscas? ")
-                    buscar += tipo
+                    buscar += f" {tipo}"
+                    print(buscar)
                 listar_clasificacion(buscar)
             else:
                 print("Ingreso una opcion de figura no valida")
