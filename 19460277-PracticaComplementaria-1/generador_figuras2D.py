@@ -22,26 +22,34 @@ def main():
             2.- Crear un triangulo\n \
             3.- Crear un circulo \n \
             Elige una opcion ---> "))
-            menu_figuras(op2)
+            if op2 == 1 or op2 == 2 or op2 == 3:
+                menu_figuras(op2)
+            else:
+                print("Ingreso una opción invalida")
 
-        if op == 2:
+        elif op == 2:
             buscar = input("¿Qué figura deseas revisar? ")
-            if buscar == "Cuadrado" and  buscar == "Triangulo" and buscar == "Circulo":
-                if buscar == "Tringulo":
+            buscar = buscar.capitalize()
+            ver1 = buscar == "Cuadrado" or buscar == "Triangulo" or buscar == "Circulo"
+            if ver1:
+                if buscar == "Triangulo":
                     tipo = input("¿Qué tipo de triangulo buscas? ")
                     buscar += tipo
                 listar_clasificacion(buscar)
             else:
                 print("Ingreso una opcion de figura no valida")
-        if op == 3:
+        elif op == 3:
             imprimir()
-        if op == 4:
+        elif op == 4:
             sumador_areas()
-        if op == 5:
+        elif op == 5:
             sumador_perimetro()
-        if op == 6:
+        elif op == 6:
             figuras.clear()
             print("La lista ha sido vaciada")
+        else:
+            print("Ingreso una opción invalida")
+
 
 def menu_figuras(op2):
     if op2 == 1:
@@ -52,11 +60,15 @@ def menu_figuras(op2):
         lado1, lado2, lado3 = float(input("Ingresa la medida del primer lado: ")), int(input(
             "Ingresa la medida del segundo lado: ")), int(input("Ingresa la medida del tercer lado: "))
         new = crear_triangulo(lado1, lado2, lado3)
-        figuras.append(new)
+        if new:
+            figuras.append(new)
+        else:
+            print("Las dimensiones ingresadas no son validas")
     if op2 == 3:
         radio = float(input("Ingresa el radio del circulo: "))
         new = crear_circulo(radio)
         figuras.append(new)
+
 
 def imprimir():
     for i in range(len(figuras)):
@@ -64,25 +76,28 @@ def imprimir():
         Figura {i+1}: \n \
         {figuras[i]}")
 
+
 def sumador_areas():
     sum_ar = 0
     for i in figuras:
-        sum_ar +=  i['area']
+        sum_ar += i['area']
     print(f"La suma de todas las areas es: {sum_ar}")
 
 
 def sumador_perimetro():
     sum_per = 0
     for i in figuras:
-        sum_per +=  i['perimetro']
+        sum_per += i['perimetro']
     print(f"La suma de todas los perimetros es: {sum_per}")
- 
+
+
 def listar_clasificacion(buscar):
     c = 0
     for i in figuras:
         if i['tipo'] == buscar:
             print(i)
-        c += 1
+        else:
+            c += 1
     if c == (len(figuras)):
         print("No hay figuras relacionadoas con la clasificacion de figuras")
 
@@ -95,36 +110,47 @@ def crear_cuadrado(lado):
 
 
 def crear_triangulo(lado1, lado2, lado3):
-
     per = lado1 + lado2 + lado3
     tipo = ""
-    area, perimetro = 0, 0
+    area = 0
     altu = 0
     if lado1 == lado2 == lado3:
         tipo = "Triangulo equilatero"
         altu = ((lado1)*(math.sqrt(3)))/2
         area = (lado1 * altu)/2
-        perimetro = lado2 + lado1 + lado3
     elif (lado1 == lado2) or (lado1 == lado3) or (lado2 == lado3):
-        tipo = "Triangulo isósceles"
+        tipo = "Triangulo isosceles"S
         if lado1 == lado2:
-            altu = math.sqrt(((lado1**2)-(lado3**2)/(4)))
-            area = (lado3*altu)/2
-            perimetro = lado2 + lado1 + lado3
+            ver = ((lado1**2)-(lado3**2)/(4))
+            if ver > 0:
+                altu = math.sqrt(ver)
+                area = (lado3*altu)/2
+            else:
+                return False
         elif lado1 == lado3:
-            altu = math.sqrt(((lado1**2)-(lado2**2)/(4)))
-            area = (lado2*altu)/2
-            perimetro = lado2 + lado1 + lado3
+            ver = ((lado1**2)-(lado2**2)/(4))
+            if ver > 0:
+                altu = math.sqrt(ver)
+                area = (lado2*altu)/2
+            else:
+                return False
         else:
-            altu = math.sqrt(((lado2**2)-(lado1**2)/(4)))
-            area = (lado1*altu)/2
-            perimetro = lado2 + lado1 + lado3
+            ver = ((lado2**2)-(lado1**2)/(4))
+            if ver > 0:
+                altu = math.sqrt(ver)
+                area = (lado1*altu)/2
+            else:
+                return False
     else:
         tipo = "Triangulo escaleno"
         sp = (lado1+lado2+lado3)
-        area = math.sqrt(sp*(sp-lado1)*(sp-lado2)*(sp-lado3))
-        perimetro = lado1+lado2+lado3
-    new_triangulo = {"tipo": tipo, "area": area, "perimetro": perimetro}
+        ver = sp*(sp-lado1)*(sp-lado2)*(sp-lado3)
+        if ver > 0:
+            area = math.sqrt(ver)
+        else:
+            return False
+
+    new_triangulo = {"tipo": tipo, "area": area, "perimetro": per}
     return new_triangulo
 
 
