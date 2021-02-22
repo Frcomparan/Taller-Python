@@ -65,8 +65,8 @@ def menu_figuras(op2):
         new = crear_cuadrado(lado)
         figuras.append(new)
     if op2 == 2:
-        lado1, lado2, lado3 = float(input("Ingresa la medida del primer lado: ")), int(input(
-            "Ingresa la medida del segundo lado: ")), int(input("Ingresa la medida del tercer lado: "))
+        lado1, lado2, lado3 = float(input("Ingresa la medida del primer lado: ")), float(input(
+            "Ingresa la medida del segundo lado: ")), float(input("Ingresa la medida del tercer lado: "))
         if dimesiones_validas(lado1,lado2,lado3):
             new = crear_triangulo(lado1, lado2, lado3)
             figuras.append(new)
