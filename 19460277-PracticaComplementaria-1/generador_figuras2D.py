@@ -40,7 +40,8 @@ def main():
         if op == 5:
             sumador_perimetro()
         if op == 6:
-            figuras.clear
+            figuras.clear()
+            print("La lista ha sido vaciada")
 
 def menu_figuras(op2):
     if op2 == 1:
