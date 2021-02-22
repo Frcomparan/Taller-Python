@@ -47,6 +47,8 @@ def main():
         elif op == 6:
             figuras.clear()
             print("La lista ha sido vaciada")
+        elif op == 0:
+            print("Cerrando.....")
         else:
             print("Ingreso una opción invalida")
 
@@ -64,18 +66,22 @@ def menu_figuras(op2):
         lado = float(input("Ingresa la medida del lado del cuadrado: "))
         new = crear_cuadrado(lado)
         figuras.append(new)
+        print("Cuadrado creado")
     if op2 == 2:
         lado1, lado2, lado3 = float(input("Ingresa la medida del primer lado: ")), float(input(
             "Ingresa la medida del segundo lado: ")), float(input("Ingresa la medida del tercer lado: "))
         if dimesiones_validas(lado1,lado2,lado3):
             new = crear_triangulo(lado1, lado2, lado3)
             figuras.append(new)
+            print("Triangulo creado")
         else:
             print("Las dimensiones ingresadas no son validas")
     if op2 == 3:
         radio = float(input("Ingresa el radio del circulo: "))
         new = crear_circulo(radio)
         figuras.append(new)
+        print("Circulo creado")
+
 
 
 def imprimir():
